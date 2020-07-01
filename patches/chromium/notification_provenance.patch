@@ -165,3 +165,22 @@ index 6d108f9884f7e8f608b70ec33d286a06346e7456..4650a01c2d090c5957eb7a7e21f12448
        const std::string& notification_id,
        const GURL& origin,
        const blink::PlatformNotificationData& notification_data,
+diff --git a/third_party/blink/renderer/modules/notifications/notification.cc b/third_party/blink/renderer/modules/notifications/notification.cc
+index 9249243e98bd918be5ff3c07b92a2a91c79307e8..5ff350c0c71deb52c7e674dfeaa4b8fd9a276d8b 100644
+--- a/third_party/blink/renderer/modules/notifications/notification.cc
++++ b/third_party/blink/renderer/modules/notifications/notification.cc
+@@ -130,12 +130,8 @@ Notification* Notification::Create(ExecutionContext* context,
+ 
+   // TODO(https://crbug.com/595685): Make |token| a constructor parameter
+   // once persistent notifications have been mojofied too.
+-  if (notification->tag().IsNull() || notification->tag().IsEmpty()) {
+-    auto unguessable_token = base::UnguessableToken::Create();
+-    notification->SetToken(unguessable_token.ToString().c_str());
+-  } else {
+-    notification->SetToken(notification->tag());
+-  }
++  auto unguessable_token = base::UnguessableToken::Create();
++  notification->SetToken(unguessable_token.ToString().c_str());
+ 
+   notification->SchedulePrepareShow();
+ 
